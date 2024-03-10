@@ -1,0 +1,171 @@
+mql5
+//+------------------------------------------------------------------+
+//|                                            Imbalance Finder for SMC |
+//|                                                                                         |
+//|                                Developed by: Forex Robot Easy Team |
+//|                                Website: forexroboteasy.com       |
+//+------------------------------------------------------------------+
+
+// Define constants
+#define MAX_CANDLES 3
+
+// Define global variables
+double imbalances[];
+
+//+------------------------------------------------------------------+
+//| Calculate Imbalances based on highs and lows of three candles    |
+//+------------------------------------------------------------------+
+void CalculateImbalances()
+{
+   // Get high and low prices of three candles
+   double high1 = High[0];
+   double high2 = High[1];
+   double high3 = High[2];
+   double low1 = Low[0];
+   double low2 = Low[1];
+   double low3 = Low[2];
+   
+   // Calculate imbalances
+   double imbalance1 = high1 - low2;
+   double imbalance2 = high3 - low2;
+   
+   // Store imbalances in array
+   imbalances[0] = imbalance1;
+   imbalances[1] = imbalance2;
+}
+
+//+------------------------------------------------------------------+
+//| Identify Mitigated and Unmitigated Imbalances                     |
+//+------------------------------------------------------------------+
+void IdentifyImbalances()
+{
+   // Calculate imbalances
+   CalculateImbalances();
+   
+   // Check for mitigated and unmitigated imbalances
+   if(imbalances[0] > imbalances[1])
+   {
+      Print('Unmitigated Imbalance detected!');
+   }
+   else if(imbalances[0] < imbalances[1])
+   {
+      Print('Mitigated Imbalance detected!');
+   }
+   else
+   {
+      Print('No Imbalance detected!');
+   }
+}
+
+//+------------------------------------------------------------------+
+//| Detect Potential Market Reversals                                 |
+//+------------------------------------------------------------------+
+bool DetectMarketReversals()
+{
+   // Calculate imbalances
+   CalculateImbalances();
+   
+   // Check for potential market reversals
+   if(imbalances[0] > imbalances[1])
+   {
+      return true;
+   }
+   else
+   {
+      return false;
+   }
+}
+
+//+------------------------------------------------------------------+
+//| Provide Precise Trade Targets                                     |
+//+------------------------------------------------------------------+
+double GetTradeTargets()
+{
+   // Calculate imbalances
+   CalculateImbalances();
+   
+   // Determine trade targets based on imbalances
+   double target1 = Close[2] - imbalances[0];
+   double target2 = Close[2] - imbalances[1];
+   
+   // Return trade targets
+   return target1, target2;
+}
+
+//+------------------------------------------------------------------+
+//| Optimize Code for Efficient Calculations and Performance          |
+//+------------------------------------------------------------------+
+void OptimizeCode()
+{
+   // Add code optimization here
+}
+
+//+------------------------------------------------------------------+
+//| Integrate Necessary Trading Functions                             |
+//+------------------------------------------------------------------+
+void ExecuteTrades()
+{
+   // Add trading execution code here
+}
+
+//+------------------------------------------------------------------+
+//| Compatibility with the L Platform                                 |
+//+------------------------------------------------------------------+
+bool IsLPlatformCompatible()
+{
+   // Add L platform compatibility check here
+   return true;
+}
+
+//+------------------------------------------------------------------+
+//| Coding Best Practices and Proper Documentation                    |
+//+------------------------------------------------------------------+
+void FollowBestPracticesAndDocumentCode()
+{
+   // Add best practices and documentation here
+}
+
+//+------------------------------------------------------------------+
+//| Test Code Functionality and Reliability                           |
+//+------------------------------------------------------------------+
+void TestCode()
+{
+   // Add code testing here
+}
+
+//+------------------------------------------------------------------+
+//| Main Entry Point                                                  |
+//+------------------------------------------------------------------+
+void OnStart()
+{
+   // Identify mitigated and unmitigated imbalances
+   IdentifyImbalances();
+   
+   // Detect potential market reversals
+   bool reversalDetected = DetectMarketReversals();
+   
+   if(reversalDetected)
+   {
+      // Get trade targets
+      double target1, target2;
+      target1, target2 = GetTradeTargets();
+      
+      // Execute trades
+      ExecuteTrades();
+   }
+   
+   // Optimize code
+   OptimizeCode();
+   
+   // Check platform compatibility
+   bool isCompatible = IsLPlatformCompatible();
+   
+   if(isCompatible)
+   {
+      // Follow best practices and document code
+      FollowBestPracticesAndDocumentCode();
+   }
+   
+   // Test code functionality and reliability
+   TestCode();
+}
